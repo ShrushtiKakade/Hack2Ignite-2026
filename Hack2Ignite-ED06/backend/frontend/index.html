@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Internship System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div>
+        <h1>Smart Internship System</h1>
+        <p>Intelligent internship monitoring & student progress</p>
+    </div>
+
+    <div class="status">
+        ● System Online
+    </div>
+
+</header>
+
+
+<nav>
+
+    <button onclick="showSection('dashboard')">🏠 Dashboard</button>
+    <button onclick="showSection('students')">👨‍🎓 Students</button>
+    <button onclick="showSection('internships')">💼 Internships</button>
+    <button onclick="showSection('reports')">📝 Reports</button>
+    <button onclick="showSection('risk')">⚠️ Risk Analysis</button>
+    <button onclick="showSection('feedback')">💬 Feedback</button>
+    <button onclick="showSection('documents')">📄 Documents</button>
+
+</nav>
+
+
+<main>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard" class="section active">
+
+    <h2>Dashboard Overview</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>👨‍🎓 Students</h3>
+            <p id="studentCount">0</p>
+            <small>Registered students</small>
+        </div>
+
+        <div class="card">
+            <h3>👨‍🏫 Mentors</h3>
+            <p id="mentorCount">0</p>
+            <small>Active mentors</small>
+        </div>
+
+        <div class="card">
+            <h3>💼 Internships</h3>
+            <p id="internshipCount">0</p>
+            <small>Tracked internships</small>
+        </div>
+
+        <div class="card">
+            <h3>📝 Reports</h3>
+            <p id="reportCount">0</p>
+            <small>Weekly submissions</small>
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+
+            <h3>⚠️ Student Risk Overview</h3>
+
+            <div id="riskOverview">
+                Loading...
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <h3>🚀 Platform Modules</h3>
+
+            <div class="module-list">
+
+                <div>👨‍🎓 Student Management</div>
+                <div>💼 Internship Tracking</div>
+                <div>📝 Weekly Reports</div>
+                <div>👨‍🏫 Mentor Review</div>
+                <div>⚠️ Risk Analysis</div>
+                <div>💬 Feedback Management</div>
+                <div>📄 Document Management</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= STUDENTS ================= -->
+
+<section id="students" class="section">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+
+        <h2>👨‍🎓 Students</h2>
+
+        <button onclick="showAddStudentForm()" class="primary-btn">
+            + Add Student
+        </button>
+
+    </div>
+
+
+    <!-- ADD STUDENT FORM -->
+
+    <div id="addStudentForm" class="panel" style="display:none; margin-bottom:20px;">
+
+        <h3 style="margin-bottom:20px;">
+            Add New Student
+        </h3>
+
+
+        <form onsubmit="addStudent(event)">
+
+            <div class="form-grid">
+
+
+                <div>
+
+                    <label>Name</label>
+
+                    <input
+                        type="text"
+                        id="studentName"
+                        placeholder="Enter student name"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="studentEmail"
+                        placeholder="Enter email"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="studentPassword"
+                        placeholder="Enter password"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label>College</label>
+
+                    <input
+                        type="text"
+                        id="studentCollege"
+                        placeholder="Enter college"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label>Course</label>
+
+                    <input
+                        type="text"
+                        id="studentCourse"
+                        placeholder="Computer Engineering"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label>Year of Study</label>
+
+                    <select id="studentYear" required>
+
+                        <option value="">
+                            Select Year
+                        </option>
+
+                        <option value="1">
+                            1st Year
+                        </option>
+
+                        <option value="2">
+                            2nd Year
+                        </option>
+
+                        <option value="3">
+                            3rd Year
+                        </option>
+
+                        <option value="4">
+                            4th Year
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>Phone</label>
+
+                    <input
+                        type="text"
+                        id="studentPhone"
+                        placeholder="Enter phone number">
+
+                </div>
+
+
+            </div>
+
+
+            <div style="margin-top:20px; display:flex; gap:10px;">
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    Add Student
+
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="hideAddStudentForm()"
+                    class="secondary-btn">
+
+                    Cancel
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- STUDENT TABLE -->
+
+    <div class="panel">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>College</th>
+                    <th>Course</th>
+                    <th>Year</th>
+                    <th>Phone</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="studentTable"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= INTERNSHIPS ================= -->
+
+<!-- INTERNSHIPS -->
+
+<section id="internships" class="section">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;">
+        <h2 style="margin-bottom:0;">💼 Internship Tracking</h2>
+
+        <button class="primary-btn" onclick="showAddInternshipForm()">
+            + Add Internship
+        </button>
+    </div>
+
+    <!-- ADD INTERNSHIP FORM -->
+
+    <div id="addInternshipForm" class="panel" style="display:none; margin-bottom:22px;">
+
+        <h3>➕ Add New Internship</h3>
+
+        <form onsubmit="addInternship(event)">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Student ID</label>
+                    <input
+                        type="number"
+                        id="internshipStudentId"
+                        placeholder="Enter student ID"
+                        required>
+                </div>
+
+                <div>
+                    <label>Mentor ID</label>
+                    <input
+                        type="number"
+                        id="internshipMentorId"
+                        placeholder="Enter mentor ID">
+                </div>
+
+                <div>
+                    <label>Company</label>
+                    <input
+                        type="text"
+                        id="internshipCompany"
+                        placeholder="Company name"
+                        required>
+                </div>
+
+                <div>
+                    <label>Role</label>
+                    <input
+                        type="text"
+                        id="internshipRole"
+                        placeholder="e.g. Java Developer"
+                        required>
+                </div>
+
+                <div>
+                    <label>Internship Type</label>
+
+                    <select id="internshipType" required>
+                        <option value="">Select type</option>
+                        <option value="ONSITE">Onsite</option>
+                        <option value="REMOTE">Remote</option>
+                        <option value="HYBRID">Hybrid</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Status</label>
+
+                    <select id="internshipStatus" required>
+                        <option value="PENDING">Pending</option>
+                        <option value="ACTIVE">Active</option>
+                        <option value="COMPLETED">Completed</option>
+                        <option value="CANCELLED">Cancelled</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Start Date</label>
+                    <input
+                        type="date"
+                        id="internshipStartDate"
+                        required>
+                </div>
+
+                <div>
+                    <label>End Date</label>
+                    <input
+                        type="date"
+                        id="internshipEndDate"
+                        required>
+                </div>
+
+            </div>
+
+            <div style="margin-top:20px; display:flex; gap:10px;">
+
+                <button type="submit" class="primary-btn">
+                    Add Internship
+                </button>
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="hideAddInternshipForm()">
+                    Cancel
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- INTERNSHIP TABLE -->
+
+    <div class="panel">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="internshipTable"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- ================= REPORTS ================= -->
+
+<section id="reports" class="section">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;">
+
+        <h2 style="margin-bottom:0;">📝 Weekly Reports</h2>
+
+        <button class="primary-btn" onclick="showAddReportForm()">
+            + Submit Report
+        </button>
+
+    </div>
+
+
+    <!-- ADD REPORT FORM -->
+
+    <div id="addReportForm" class="panel" style="display:none; margin-bottom:22px;">
+
+        <h3>➕ Submit Weekly Report</h3>
+
+        <form onsubmit="addReport(event)">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Internship ID</label>
+
+                    <input
+                        type="number"
+                        id="reportInternshipId"
+                        placeholder="Enter internship ID"
+                        required>
+                </div>
+
+
+                <div>
+                    <label>Week Number</label>
+
+                    <input
+                        type="number"
+                        id="reportWeekNumber"
+                        placeholder="e.g. 1"
+                        min="1"
+                        required>
+                </div>
+
+
+                <div>
+                    <label>Hours Worked</label>
+
+                    <input
+                        type="number"
+                        id="reportHoursWorked"
+                        placeholder="e.g. 35"
+                        step="0.5"
+                        min="0"
+                        required>
+                </div>
+
+
+                <div>
+                    <label>Tasks Completed</label>
+
+                    <input
+                        type="text"
+                        id="reportTasksCompleted"
+                        placeholder="Tasks completed this week"
+                        required>
+                </div>
+
+
+                <div>
+                    <label>Description</label>
+
+                    <input
+                        type="text"
+                        id="reportDescription"
+                        placeholder="Describe your work"
+                        required>
+                </div>
+
+
+                <div>
+                    <label>Problems Faced</label>
+
+                    <input
+                        type="text"
+                        id="reportProblemsFaced"
+                        placeholder="Any problems faced">
+                </div>
+
+
+                <div>
+                    <label>Next Week Plan</label>
+
+                    <input
+                        type="text"
+                        id="reportNextWeekPlan"
+                        placeholder="Plan for next week">
+                </div>
+
+            </div>
+
+
+            <div style="margin-top:20px; display:flex; gap:10px;">
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    Submit Report
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="hideAddReportForm()">
+
+                    Cancel
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- REPORT TABLE -->
+
+    <div class="panel">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Internship</th>
+                    <th>Week</th>
+                    <th>Hours</th>
+                    <th>Status</th>
+<th>Action</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody id="reportTable"></tbody>
+
+        </table>
+
+    </div>
+
+</section> 
+
+<!-- ================= RISK ================= -->
+
+<section id="risk" class="section">
+
+    <h2>⚠️ Risk Analysis</h2>
+
+    <p style="margin-bottom:20px;color:#64748b;">
+
+        Student progress analysis based on reports,
+        tasks, mentor feedback and working hours.
+
+    </p>
+
+
+    <div id="riskCards" class="risk-grid"></div>
+
+</section>
+
+
+
+<!-- ================= FEEDBACK ================= -->
+
+```html
+<section id="feedback" class="section">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;">
+
+        <h2 style="margin-bottom:0;">💬 Mentor Feedback</h2>
+
+        <button class="primary-btn" onclick="showFeedbackForm()">
+            + Add Feedback
+        </button>
+
+    </div>
+
+
+    <!-- ADD FEEDBACK FORM -->
+
+    <div id="feedbackForm" class="panel" style="display:none; margin-bottom:22px;">
+
+        <h3>➕ Add Mentor Feedback</h3>
+
+        <form onsubmit="addFeedback(event)">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Student ID</label>
+
+                    <input
+                        type="number"
+                        id="feedbackStudentId"
+                        placeholder="Enter student ID"
+                        required>
+                </div>
+
+
+                <div>
+                    <label>Mentor ID</label>
+
+                    <input
+                        type="number"
+                        id="feedbackMentorId"
+                        placeholder="Enter mentor ID"
+                        required>
+                </div>
+
+
+                <div>
+                    <label>Report ID</label>
+
+                    <input
+                        type="number"
+                        id="feedbackReportId"
+                        placeholder="Enter report ID">
+                </div>
+
+
+                <div>
+                    <label>Rating</label>
+
+                    <select id="feedbackRating">
+
+                        <option value="">
+                            Select Rating
+                        </option>
+
+                        <option value="1">⭐ 1</option>
+                        <option value="2">⭐ 2</option>
+                        <option value="3">⭐ 3</option>
+                        <option value="4">⭐ 4</option>
+                        <option value="5">⭐ 5</option>
+
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Feedback Type</label>
+
+                    <select id="feedbackType" required>
+
+                        <option value="GENERAL">
+                            General
+                        </option>
+
+                        <option value="REPORT_REVIEW">
+                            Report Review
+                        </option>
+
+                        <option value="CHANGE_REQUEST">
+                            Change Request
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Comment</label>
+
+                    <input
+                        type="text"
+                        id="feedbackComment"
+                        placeholder="Enter mentor feedback"
+                        required>
+                </div>
+
+            </div>
+
+
+            <div style="margin-top:20px; display:flex; gap:10px;">
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    Submit Feedback
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="hideFeedbackForm()">
+
+                    Cancel
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- FEEDBACK CARDS -->
+
+    <div id="feedbackCards" class="feedback-grid"></div>
+
+</section>
+```
+
+
+
+
+<!-- ================= DOCUMENTS ================= -->
+
+<section id="documents" class="section">
+
+    <h2>📄 Student Documents</h2>
+
+    <div class="panel">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Type</th>
+                    <th>File Name</th>
+                    <th>Uploaded</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="documentTable"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
